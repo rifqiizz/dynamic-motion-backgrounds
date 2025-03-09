@@ -4,6 +4,7 @@ import { BentoDemo } from "@/components/BentoDemo";
 import { Logos3Demo } from "@/components/Logos3Demo";
 import { BackgroundBoxesDemo } from "@/components/BackgroundBoxesDemo";
 import { GlobeDemo } from "@/components/GlobeDemo";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -32,6 +33,8 @@ const Index = () => {
           <GlobeDemo />
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
