@@ -16,16 +16,37 @@ import {
 import { Facebook, Instagram, Linkedin, Moon, Send, Sun, Twitter } from "lucide-react"
 
 function Footerdemo() {
-  const [isDarkMode, setIsDarkMode] = React.useState(true)
+  // Check initial theme from localStorage or system preference
+  const [isDarkMode, setIsDarkMode] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      // Check localStorage first
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme === 'dark';
+      }
+      // If no saved preference, check system preference
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
   const [isChatOpen, setIsChatOpen] = React.useState(false)
 
+  // Apply theme changes and save to localStorage
   React.useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark")
+      localStorage.setItem('theme', 'dark')
     } else {
       document.documentElement.classList.remove("dark")
+      localStorage.setItem('theme', 'light')
     }
   }, [isDarkMode])
+
+  // Handle theme toggle
+  const toggleTheme = (checked: boolean) => {
+    setIsDarkMode(checked);
+  };
 
   return (
     <footer className="relative border-t bg-background text-foreground transition-colors duration-300">
@@ -139,15 +160,16 @@ function Footerdemo() {
               </TooltipProvider>
             </div>
             <div className="flex items-center space-x-2">
-              <Sun className="h-4 w-4" />
+              <Sun className="h-4 w-4 text-yellow-500" />
               <Switch
                 id="dark-mode"
                 checked={isDarkMode}
-                onCheckedChange={setIsDarkMode}
+                onCheckedChange={toggleTheme}
+                className="data-[state=checked]:bg-slate-700"
               />
-              <Moon className="h-4 w-4" />
-              <Label htmlFor="dark-mode" className="sr-only">
-                Toggle dark mode
+              <Moon className="h-4 w-4 text-slate-700 dark:text-slate-200" />
+              <Label htmlFor="dark-mode" className="ml-2 cursor-pointer text-sm">
+                {isDarkMode ? 'Dark' : 'Light'} Mode
               </Label>
             </div>
           </div>
