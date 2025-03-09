@@ -2,6 +2,7 @@
 import { DemoBackgroundPaths } from "@/components/DemoBackgroundPaths";
 import { BentoDemo } from "@/components/BentoDemo";
 import { Logos3Demo } from "@/components/Logos3Demo";
+import { BackgroundBoxesDemo } from "@/components/BackgroundBoxesDemo";
 
 const Index = () => {
   return (
@@ -17,6 +18,11 @@ const Index = () => {
 
       <section className="w-full bg-background">
         <Logos3Demo />
+      </section>
+
+      <section className="w-full max-w-7xl mx-auto px-4 py-24">
+        <h2 className="text-4xl font-bold text-center mb-12">Interactive Playground</h2>
+        <BackgroundBoxesDemo />
       </section>
     </div>
   );
